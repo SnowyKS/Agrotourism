@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас - АгроТур</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .about-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+            margin-bottom: 50px;
+        }
+        .team-card {
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+        }
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация (такая же как на главной) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-tree-fill"></i> АгроТур
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="about.html">О нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Продукты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="activities.html">Бронирование</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Герой секция -->
+    <section class="about-hero text-center">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-4">О нас</h1>
+            <p class="lead">Наша история, ценности и команда</p>
+        </div>
+    </section>
+
+    <!-- О компании -->
+    <section class="container mb-5">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h2 class="mb-4">Наша история</h2>
+                <p>АгроТур был основан в 2010 году семьей Ивановых как небольшой семейный гостевой дом в живописном селе Заповедное. Что началось как скромный проект по приему гостей в собственном доме, превратилось в успешный агротуристический комплекс с 15 домиками и развитой инфраструктурой.</p>
+                <p>За 13 лет работы мы приняли более 5000 гостей, многие из которых возвращаются к нам снова и снова. Наша миссия - показать красоту сельской жизни, сохраняя традиции и заботясь об окружающей среде.</p>
+                <a href="activities.html" class="btn btn-success mt-3">Наша деятельность</a>
+            </div>
+            <div class="col-md-6">
+                <img src="https://images.unsplash.com/photo-1600566752229-250ed79470b9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="img-fluid rounded" alt="Наша ферма">
+            </div>
+        </div>
+    </section>
+
+    <!-- Наши ценности -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Наши ценности</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-tree text-success" style="font-size: 2rem;"></i>
+                            <h3 class="card-title mt-3">Экология</h3>
+                            <p class="card-text">Мы используем экологичные материалы, сортируем отходы и минимизируем воздействие на природу.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-people text-success" style="font-size: 2rem;"></i>
+                            <h3 class="card-title mt-3">Традиции</h3>
+                            <p class="card-text">Сохраняем и передаем гостям традиционные ремесла и навыки сельской жизни.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-heart text-success" style="font-size: 2rem;"></i>
+                            <h3 class="card-title mt-3">Гостеприимство</h3>
+                            <p class="card-text">Каждый гость для нас - желанный друг, мы делаем все для вашего комфорта.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Наша команда -->
+    <section class="container py-5">
+        <h2 class="text-center mb-5">Наша команда</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card team-card">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="card-img-top" alt="Основатель">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Иван Иванов</h5>
+                        <p class="text-muted">Основатель, руководитель</p>
+                        <p class="card-text">Бывший городской житель, который нашел свое призвание в сельском туризме.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card team-card">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" class="card-img-top" alt="Шеф-повар">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Мария Иванова</h5>
+                        <p class="text-muted">Шеф-повар, хозяйка</p>
+                        <p class="card-text">Автор уникальных рецептов и мастер традиционной кухни.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card team-card">
+                    <img src="https://randomuser.me/api/portraits/men/65.jpg" class="card-img-top" alt="Гид">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Алексей Петров</h5>
+                        <p class="text-muted">Гид, мастер ремесел</p>
+                        <p class="card-text">Знаток местной природы и традиционных ремесел.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер (такой же как на главной) -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>АгроТур</h5>
+                    <p>Отдых в гармонии с природой с 2010 года</p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Контакты</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-geo-alt me-2"></i> с. Заповедное, ул. Лесная, 15</li>
+                        <li><i class="bi bi-telephone me-2"></i> 8 (800) 123-45-67</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Подписаться на новости</h5>
+                    <form>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Ваш email">
+                        </div>
+                        <button type="submit" class="btn btn-light">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 АгроТур. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

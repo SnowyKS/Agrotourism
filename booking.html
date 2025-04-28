@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование - АгроТур</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Иконки Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #4a7c59;
+            --secondary-color: #f8f9fa;
+            --accent-color: #d4a59a;
+            --text-dark: #343a40;
+            --text-light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+        }
+        
+        .booking-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1504851149312-7a075b496cc7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .booking-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23ffffff" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23ffffff" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23ffffff"/></svg>');
+            background-size: cover;
+            z-index: 1;
+        }
+        
+        .booking-form {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .form-section {
+            display: none;
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        .nav-tabs .nav-link {
+            color: var(--text-dark);
+            font-weight: 500;
+            border: none;
+            padding: 12px 20px;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--primary-color);
+            background-color: transparent;
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(74, 124, 89, 0.25);
+        }
+        
+        .package-card {
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            height: 100%;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+        
+        .package-card.selected {
+            border: 2px solid var(--primary-color);
+            background-color: rgba(74, 124, 89, 0.05);
+        }
+        
+        .package-card .card-body {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .price-badge {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        
+        .amenities-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .amenities-list li {
+            margin-bottom: 8px;
+        }
+        
+        .amenities-list i {
+            color: var(--primary-color);
+            margin-right: 8px;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .confirmation-icon {
+            font-size: 5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #4a7c59;">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-tree-fill"></i> АгроТур
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">О нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Продукты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="booking.html">Бронирование</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Герой секция -->
+    <section class="booking-hero text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4">Бронирование отдыха</h1>
+            <p class="lead">Заполните форму ниже, и мы свяжемся с вами для подтверждения бронирования</p>
+        </div>
+    </section>
+
+    <!-- Форма бронирования -->
+    <section class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="booking-form">
+                    <!-- Шаги формы -->
+                    <ul class="nav nav-tabs mb-5 justify-content-center" id="bookingTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="step1-tab" data-bs-toggle="tab" data-bs-target="#step1" type="button" role="tab">1. Выбор пакета</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="step2-tab" data-bs-toggle="tab" data-bs-target="#step2" type="button" role="tab" disabled>2. Даты и гости</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="step3-tab" data-bs-toggle="tab" data-bs-target="#step3" type="button" role="tab" disabled>3. Контактные данные</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="step4-tab" data-bs-toggle="tab" data-bs-target="#step4" type="button" role="tab" disabled>4. Подтверждение</button>
+                        </li>
+                    </ul>
+                    
+                    <!-- Содержимое шагов -->
+                    <div class="tab-content" id="bookingTabContent">
+                        <!-- Шаг 1: Выбор пакета -->
+                        <div class="tab-pane fade show active" id="step1" role="tabpanel" aria-labelledby="step1-tab">
+                            <h2 class="text-center section-title">Выберите ваш пакет отдыха</h2>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="package-card" onclick="selectPackage(this, 'standard')">
+                                        <img src="https://images.unsplash.com/photo-1582719471387-6d7658fcecf0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Стандартный пакет">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Стандартный</h5>
+                                            <span class="price-badge mb-3">2 500₽/сутки</span>
+                                            <p class="card-text">Комфортабельный домик с базовыми удобствами для непритязательного отдыха.</p>
+                                            <ul class="amenities-list mt-auto">
+                                                <li><i class="bi bi-check-circle"></i> Домик на 2-3 человека</li>
+                                                <li><i class="bi bi-check-circle"></i> Кухня и санузел</li>
+                                                <li><i class="bi bi-check-circle"></i> Терраса</li>
+                                                <li><i class="bi bi-check-circle"></i> Завтрак включен</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="package-card" onclick="selectPackage(this, 'comfort')">
+                                        <img src="https://images.unsplash.com/photo-1600566752229-250ed79470b9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Комфорт пакет">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Комфорт</h5>
+                                            <span class="price-badge mb-3">3 800₽/сутки</span>
+                                            <p class="card-text">Просторные домики с дополнительными удобствами для комфортного отдыха.</p>
+                                            <ul class="amenities-list mt-auto">
+                                                <li><i class="bi bi-check-circle"></i> Домик на 4 человека</li>
+                                                <li><i class="bi bi-check-circle"></i> Полностью оборудованная кухня</li>
+                                                <li><i class="bi bi-check-circle"></i> Камин и терраса</li>
+                                                <li><i class="bi bi-check-circle"></i> Завтрак и ужин включены</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="package-card" onclick="selectPackage(this, 'premium')">
+                                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Премиум пакет">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Премиум</h5>
+                                            <span class="price-badge mb-3">5 500₽/сутки</span>
+                                            <p class="card-text">Роскошные апартаменты с эксклюзивными услугами для особого отдыха.</p>
+                                            <ul class="amenities-list mt-auto">
+                                                <li><i class="bi bi-check-circle"></i> Домик на 4-6 человек</li>
+                                                <li><i class="bi bi-check-circle"></i> Джакузи и сауна</li>
+                                                <li><i class="bi bi-check-circle"></i> Персональный гид</li>
+                                                <li><i class="bi bi-check-circle"></i> Полный пансион + экскурсии</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-5">
+                                <button class="btn btn-primary btn-lg px-5" onclick="nextStep('step2')">Далее</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Шаг 2: Даты и гости -->
+                        <div class="tab-pane fade" id="step2" role="tabpanel" aria-labelledby="step2-tab">
+                            <h2 class="text-center section-title">Выберите даты и количество гостей</h2>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-4">
+                                        <label for="checkInDate" class="form-label">Дата заезда</label>
+                                        <input type="date" class="form-control" id="checkInDate" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-4">
+                                        <label for="checkOutDate" class="form-label">Дата выезда</label>
+                                        <input type="date" class="form-control" id="checkOutDate" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-4">
+                                        <label for="adults" class="form-label">Взрослые</label>
+                                        <select class="form-select" id="adults" required>
+                                            <option value="1">1</option>
+                                            <option value="2" selected>2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-4">
+                                        <label for="children" class="form-label">Дети (до 12 лет)</label>
+                                        <select class="form-select" id="children">
+                                            <option value="0" selected>0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="specialRequests" class="form-label">Особые пожелания</label>
+                                <textarea class="form-control" id="specialRequests" rows="3" placeholder="Укажите любые особые пожелания или требования"></textarea>
+                            </div>
+                            <div class="d-flex justify-content-between mt-5">
+                                <button class="btn btn-outline-primary btn-lg px-4" onclick="prevStep('step1')">Назад</button>
+                                <button class="btn btn-primary btn-lg px-5" onclick="nextStep('step3')">Далее</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Шаг 3: Контактные данные -->
+                        <div class="tab-pane fade" id="step3" role="tabpanel" aria-labelledby="step3-tab">
+                            <h2 class="text-center section-title">Контактные данные</h2>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-4">
+                                        <label for="firstName" class="form-label">Имя*</label>
+                                        <input type="text" class="form-control" id="firstName" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-4">
+                                        <label for="lastName" class="form-label">Фамилия*</label>
+                                        <input type="text" class="form-control" id="lastName" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-4">
+                                        <label for="email" class="form-label">Email*</label>
+                                        <input type="email" class="form-control" id="email" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-4">
+                                        <label for="phone" class="form-label">Телефон*</label>
+                                        <input type="tel" class="form-control" id="phone" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="paymentMethod" class="form-label">Способ оплаты</label>
+                                <select class="form-select" id="paymentMethod">
+                                    <option value="card">Банковская карта</option>
+                                    <option value="cash">Наличные при заезде</option>
+                                    <option value="transfer">Банковский перевод</option>
+                                </select>
+                            </div>
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                <label class="form-check-label" for="agreeTerms">
+                                    Я согласен с <a href="#">условиями бронирования</a> и <a href="#">политикой конфиденциальности</a>*
+                                </label>
+                            </div>
+                            <div class="d-flex justify-content-between mt-5">
+                                <button class="btn btn-outline-primary btn-lg px-4" onclick="prevStep('step2')">Назад</button>
+                                <button class="btn btn-primary btn-lg px-5" onclick="nextStep('step4')">Забронировать</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Шаг 4: Подтверждение -->
+                        <div class="tab-pane fade text-center" id="step4" role="tabpanel" aria-labelledby="step4-tab">
+                            <i class="bi bi-check-circle-fill confirmation-icon"></i>
+                            <h2 class="mb-4">Ваше бронирование принято!</h2>
+                            <p class="lead mb-4">Мы отправили подтверждение на ваш email. Скоро с вами свяжется наш менеджер для уточнения деталей.</p>
+                            <p>Номер вашей заявки: <strong>#AG-2023-4567</strong></p>
+                            <div class="d-flex justify-content-center gap-3 mt-5">
+                                <a href="index.html" class="btn btn-primary btn-lg px-4">На главную</a>
+                                <a href="products.html" class="btn btn-outline-primary btn-lg px-4">Другие предложения</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>АгроТур</h5>
+                    <p>Отдых в гармонии с природой с 2010 года</p>
+                    <div class="social-links">
+                        <a href="#" class="me-3 text-white"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="me-3 text-white"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="me-3 text-white"><i class="bi bi-youtube"></i></a>
+                        <a href="#" class="me-3 text-white"><i class="bi bi-telegram"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>Навигация</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white">Главная</a></li>
+                        <li><a href="about.html" class="text-white">О нас</a></li>
+                        <li><a href="products.html" class="text-white">Продукты</a></li>
+                        <li><a href="booking.html" class="text-white">Бронирование</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5>Контакты</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-geo-alt me-2"></i> с. Заповедное, ул. Лесная, 15</li>
+                        <li><i class="bi bi-telephone me-2"></i> 8 (800) 123-45-67</li>
+                        <li><i class="bi bi-envelope me-2"></i> info@agrotour.ru</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Подписаться на новости</h5>
+                    <form>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Ваш email">
+                        </div>
+                        <button type="submit" class="btn btn-light">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3 bg-light">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 АгроТур. Все права защищены.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white me-3">Политика конфиденциальности</a>
+                    <a href="#" class="text-white">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Переменная для хранения выбранного пакета
+        let selectedPackage = null;
+        
+        // Функция выбора пакета
+        function selectPackage(element, packageType) {
+            // Удаляем класс selected у всех карточек
+            document.querySelectorAll('.package-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Добавляем класс selected к выбранной карточке
+            element.classList.add('selected');
+            
+            // Сохраняем выбранный пакет
+            selectedPackage = packageType;
+            
+            // Активируем кнопку "Далее"
+            document.querySelector('#step1 .btn-primary').disabled = false;
+        }
+        
+        // Функция перехода к следующему шагу
+        function nextStep(nextStepId) {
+            // Проверяем текущий шаг
+            const currentStep = document.querySelector('.tab-pane.active');
+            
+            // Проверяем валидность формы на текущем шаге
+            if (currentStep.id === 'step1' && !selectedPackage) {
+                alert('Пожалуйста, выберите пакет для бронирования');
+                return;
+            }
+            
+            if (currentStep.id === 'step3') {
+                // Проверяем обязательные поля перед отправкой
+                const requiredFields = currentStep.querySelectorAll('[required]');
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    if (!field.value) {
+                        field.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+                
+                if (!isValid) {
+                    alert('Пожалуйста, заполните все обязательные поля');
+                    return;
+                }
+                
+                // Здесь можно добавить отправку формы на сервер
+                console.log('Форма отправлена!');
+            }
+            
+            // Переходим к следующему шагу
+            const currentTab = document.querySelector('.nav-link.active');
+            const nextTab = document.querySelector(`#${nextStepId}-tab`);
+            
+            currentTab.classList.remove('active');
+            nextTab.classList.remove('disabled');
+            nextTab.classList.add('active');
+            
+            const currentPane = document.querySelector('.tab-pane.active');
+            const nextPane = document.querySelector(`#${nextStepId}`);
+            
+            currentPane.classList.remove('show', 'active');
+            nextPane.classList.add('show', 'active');
+            
+            // Прокручиваем к верху формы
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Функция возврата к предыдущему шагу
+        function prevStep(prevStepId) {
+            const currentTab = document.querySelector('.nav-link.active');
+            const prevTab = document.querySelector(`#${prevStepId}-tab`);
+            
+            currentTab.classList.remove('active');
+            prevTab.classList.add('active');
+            
+            const currentPane = document.querySelector('.tab-pane.active');
+            const prevPane = document.querySelector(`#${prevStepId}`);
+            
+            currentPane.classList.remove('show', 'active');
+            prevPane.classList.add('show', 'active');
+            
+            // Прокручиваем к верху формы
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Инициализация дат в календаре
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            // Форматируем даты для input[type="date"]
+            const formatDate = (date) => {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            };
+            
+            // Устанавливаем минимальные даты (сегодня и завтра)
+            document.getElementById('checkInDate').min = formatDate(today);
+            document.getElementById('checkOutDate').min = formatDate(tomorrow);
+            
+            // Устанавливаем значения по умолчанию
+            document.getElementById('checkInDate').value = formatDate(today);
+            document.getElementById('checkOutDate').value = formatDate(tomorrow);
+            
+            // Обновляем минимальную дату выезда при изменении даты заезда
+            document.getElementById('checkInDate').addEventListener('change', function() {
+                const checkInDate = new Date(this.value);
+                const minCheckOutDate = new Date(checkInDate);
+                minCheckOutDate.setDate(minCheckOutDate.getDate() + 1);
+                
+                const checkOutDateInput = document.getElementById('checkOutDate');
+                checkOutDateInput.min = formatDate(minCheckOutDate);
+                
+                // Если текущая дата выезда раньше новой минимальной, обновляем ее
+                if (new Date(checkOutDateInput.value) < minCheckOutDate) {
+                    checkOutDateInput.value = formatDate(minCheckOutDate);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

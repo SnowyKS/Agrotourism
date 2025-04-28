@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наши продукты - АгроТур</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .products-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+            margin-bottom: 50px;
+        }
+        .product-card {
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+            height: 100%;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        .price-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.2rem;
+            background-color: rgba(40, 167, 69, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-tree-fill"></i> АгроТур
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">О нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="products.html">Продукты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="activities.html">Бронирование</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Герой секция -->
+    <section class="products-hero text-center">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-4">Наши продукты</h1>
+            <p class="lead">Все, что мы предлагаем для вашего идеального отдыха</p>
+        </div>
+    </section>
+
+    <!-- Продукты -->
+    <section class="container mb-5" id="products">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card product-card">
+                    <span class="badge price-badge">от 2 500₽/сутки</span>
+                    <img src="https://images.unsplash.com/photo-1582719471387-6d7658fcecf0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Домики">
+                    <div class="card-body">
+                        <h5 class="card-title">Гостевые домики</h5>
+                        <p class="card-text">Уютные деревянные домики с современными удобствами в традиционном стиле. В каждом домике: кухня, санузел, терраса.</p>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bookingModal">Забронировать</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card product-card">
+                    <span class="badge price-badge">1 200₽/чел</span>
+                    <img src="https://images.unsplash.com/photo-1518977676601-b53fccaba963?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Питание">
+                    <div class="card-body">
+                        <h5 class="card-title">Фермерское питание</h5>
+                        <p class="card-text">Завтраки, обеды и ужины из экологически чистых продуктов с нашей фермы. Возможность выбора меню.</p>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bookingModal">Заказать</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card product-card">
+                    <span class="badge price-badge">800₽/чел</span>
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Мастер-классы">
+                    <div class="card-body">
+                        <h5 class="card-title">Мастер-классы</h5>
+                        <p class="card-text">Сыроделие, хлебопечение, гончарное дело, плетение из лозы и другие традиционные ремесла.</p>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bookingModal">Записаться</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card product-card">
+                    <span class="badge price-badge">500₽/чел</span>
+                    <img src="https://images.unsplash.com/photo-1504851149312-7a075b496cc7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Экскурсии">
+                    <div class="card-body">
+                        <h5 class="card-title">Экскурсии</h5>
+                        <p class="card-text">Пешие, велосипедные и конные прогулки по окрестностям с опытными гидами.</p>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bookingModal">Выбрать</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card product-card">
+                    <span class="badge price-badge">300₽/чел</span>
+                    <img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Рыбалка">
+                    <div class="card-body">
+                        <h5 class="card-title">Рыбалка</h5>
+                        <p class="card-text">Организованная рыбалка на местном озере с прокатом снастей и сопровождением.</p>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bookingModal">Забронировать</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card product-card">
+                    <span class="badge price-badge">1 500₽/чел</span>
+                    <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Фотосессии">
+                    <div class="card-body">
+                        <h5 class="card-title">Фотосессии</h5>
+                        <p class="card-text">Профессиональные фотосессии в живописных локациях нашего комплекса.</p>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bookingModal">Записаться</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Дополнительные услуги -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Дополнительные услуги</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Трансфер</h5>
+                            <p class="card-text">Встреча и проводы на вокзале/аэропорту (до 50 км от комплекса).</p>
+                            <p class="text-success fw-bold">от 1 000₽</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Аренда велосипедов</h5>
+                            <p class="card-text">Горные и прогулочные велосипеды для самостоятельных путешествий.</p>
+                            <p class="text-success fw-bold">500₽/день</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Баня</h5>
+                            <p class="card-text">Традиционная русская баня на дровах с вениками и чаепитием.</p>
+                            <p class="text-success fw-bold">1 500₽/час</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Сувениры</h5>
+                            <p class="card-text">Изделия местных мастеров и продукты с нашей фермы.</p>
+                            <p class="text-success fw-bold">от 200₽</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальное окно для заявки -->
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bookingModalLabel">Оставить заявку</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="productName" class="form-label">Выбранная услуга</label>
+                            <input type="text" class="form-control" id="productName" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Ваше имя</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Телефон</label>
+                            <input type="tel" class="form-control" id="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dates" class="form-label">Желаемые даты</label>
+                            <input type="text" class="form-control" id="dates" placeholder="Пример: 15.07 - 22.07.2023">
+                        </div>
+                        <div class="mb-3">
+                            <label for="guests" class="form-label">Количество человек</label>
+                            <input type="number" class="form-control" id="guests" min="1" value="1">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-success">Отправить заявку</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <footer class="bg-dark text-white py-4">
+        <!-- ... (такой же как на других страницах) ... -->
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Скрипт для заполнения названия услуги в модальном окне
+        document.addEventListener('DOMContentLoaded', function() {
+            var bookingButtons = document.querySelectorAll('[data-bs-toggle="modal"]');
+            bookingButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var productTitle = button.closest('.card-body').querySelector('.card-title').textContent;
+                    document.getElementById('productName').value = productTitle;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
